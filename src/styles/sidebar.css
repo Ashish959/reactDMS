@@ -1,0 +1,110 @@
+/* ===== SIDEBAR WRAPPER ===== */
+.sidebar-content {
+  background: var(--sidebar-bg);
+  color: #fff;
+  height: calc(100vh - 64px);
+  transition: width 0.3s ease;
+  overflow: hidden;
+}
+
+/* OPEN / CLOSED STATES */
+.sidebar-content.open {
+  width: 240px;
+}
+
+.sidebar-content.closed {
+  width: 72px;
+}
+
+/* ===== MENU ===== */
+.menu {
+  list-style: none;
+  padding: 16px 12px;
+  margin: 0;
+}
+
+/* MENU ITEM */
+.menu-item {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 12px 14px;
+  border-radius: 12px;
+  cursor: pointer;
+  margin-bottom: 6px;
+  transition: background 0.3s, color 0.3s;
+}
+
+/* ICON */
+.menu-item .icon {
+  font-size: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 24px;
+}
+
+/* TEXT */
+.menu-item .text {
+  font-size: 14px;
+  white-space: nowrap;
+}
+
+/* HOVER */
+.menu-item:hover {
+  background: var(--sidebar-hover);
+}
+
+/* ACTIVE */
+.menu-item.active {
+  background: var(--card-bg);
+  color: var(--primary);
+  font-weight: 600;
+}
+
+.menu-item.active .icon {
+  color: var(--primary);
+}
+
+/* CLOSED STATE TEXT HIDE */
+.sidebar-content.closed .menu-item .text {
+  display: none;
+}
+
+/* CENTER ICONS WHEN CLOSED */
+.sidebar-content.closed .menu-item {
+  justify-content: center;
+}
+.sidebar-content {
+  overflow-y: auto;   /* 🔥 enable vertical scroll */
+  overflow-x: hidden;
+}
+@media (max-width: 768px) {
+
+  .sidebar-content {
+    position: relative;
+    height: calc(100vh - 52px); /* mobile header height */
+    transition: width 0.3s ease;
+  }
+
+  /* DEFAULT CLOSED = ICON ONLY */
+  .sidebar-content.closed {
+    width: 64px;
+  }
+
+  /* OPEN = FULL */
+  .sidebar-content.open {
+    width: 220px;
+  }
+
+  /* Hide text when closed */
+  .sidebar-content.closed .menu-item .text {
+    display: none;
+  }
+
+  /* Center icons */
+  .sidebar-content.closed .menu-item {
+    justify-content: center;
+    padding: 12px 0;
+  }
+}
