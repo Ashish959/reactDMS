@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Auth from "./pages/Auth";
 import Dashboard from "./pages/Dashboard";
 import DashboardLayout from "./layouts/DashboardLayout";
+import Counter from "./pages/Counter";
 
 function ProtectedRoute({ children }) {
   const empId = localStorage.getItem("Emp_Id");
@@ -15,6 +16,7 @@ function App() {
 
         {/* DEFAULT */}
         <Route path="/" element={<Navigate to="/login" />} />
+        <Route path="/counter" element={<Counter />} />
 
         {/* LOGIN */}
         <Route path="/login" element={<Auth />} />

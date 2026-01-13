@@ -29,7 +29,6 @@ function Auth() {
   return (
     <div className="login-saas-wrapper">
       <div className="login-saas-container">
-
         {/* LEFT */}
         <div className="login-left">
           <h1>The World’s Most Powerful CRM</h1>
