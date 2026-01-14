@@ -1,58 +1,90 @@
-.card-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-  gap: 20px;
-}
-.stat-card {
-  background: var(--card-bg);
-}
-.stat-card {
+.stat-card.modern {
   background: var(--card-bg);
   border-radius: var(--radius);
-  padding: 18px 20px;
-  color: var(--text);
-  box-shadow: 0 8px 24px rgba(0,0,0,0.08);
-  transition: 0.3s;
+  padding: 14px 18px;
+  border: 1px solid var(--card-border);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  min-height: 90px;
+  transition: all 0.25s ease;
 }
 
-.stat-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 14px 32px rgba(0,0,0,0.15);
-}
-
-.stat-card h4 {
-  font-size: 15px;
+/* Title */
+.stat-title {
+  font-size: 13px;
   font-weight: 600;
-  margin-bottom: 12px;
+  color: var(--text-color);
+  margin-bottom: 10px;
 }
-.stat-row {
+
+/* Metrics row */
+.stat-metrics {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  font-size: 14px;
-  margin-top: 6px;
 }
 
-.stat-row span:first-child {
+/* Single metric */
+.metric {
+  position: relative;
+  text-align: left;
+}
+
+/* Divider line */
+.metric:not(:last-child)::after {
+  content: "";
+  position: absolute;
+  right: -12px;
+  top: 6px;
+  height: 28px;
+  width: 1px;
+  background: var(--card-border);
+}
+
+/* Numbers */
+.metric .value.big {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--text-color);
+}
+
+/* Labels */
+.metric .label {
+  display: block;
+  font-size: 11px;
   color: var(--muted);
+  margin-top: 2px;
 }
 
-.stat-row span:last-child {
-  font-weight: 600;
+/* Hover effect */
+.stat-card.modern:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.12);
 }
 
-.card-blue   { border-left: 5px solid var(--blue); }
-.card-green  { border-left: 5px solid var(--green); }
-.card-orange { border-left: 5px solid var(--orange); }
-.card-red    { border-left: 5px solid var(--red); }
+/* Accent strip (theme friendly) */
+.stat-card.blue {
+  border-top: 3px solid var(--blue);
+}
 
+.stat-card.orange {
+  border-top: 3px solid var(--orange);
+}
+
+.stat-card.green {
+  border-top: 3px solid var(--green);
+}
+
+.stat-card.red {
+  border-top: 3px solid var(--red);
+}
+
+/* Responsive */
 @media (max-width: 768px) {
-  .card-grid {
-    grid-template-columns: 1fr;   /* 🔥 ek card per row */
+  .stat-metrics {
+    gap: 14px;
   }
 
-  .stat-card {
-    padding: 16px;
-    border-left-width: 4px;
+  .metric .value.big {
+    font-size: 16px;
   }
 }

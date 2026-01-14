@@ -1,45 +1,30 @@
-// export default function StatCard({ title, className = "" }) {
-//   return (
-//     <div className={`stat-card ${className}`}>
-//       <h4>{title}</h4>
-
-//       <div className="stat-row">
-//         <span>ATV</span>
-//         <span>0</span>
-//       </div>
-
-//       <div className="stat-row">
-//         <span>MTD</span>
-//         <span>0 / 0</span>
-//       </div>
-
-//       <div className="stat-row">
-//         <span>LMTD</span>
-//         <span>0 / 0</span>
-//       </div>
-//     </div>
-//   );
-// }
-import "../styles/card.css";
-
-export default function StatCard({ title, className }) {
+ import "../styles/card.css";
+export default function StatCard({
+  title,
+  atv = 0,
+  mtd = "0 / 0",
+  lmtd = "0 / 0",
+  variant = "blue", // blue | orange | green
+}) {
   return (
-    <div className={`stat-card ${className}`}>
-      <h4>{title}</h4>
+    <div className={`stat-card modern ${variant}`}>
+      <div className="stat-title">{title}</div>
 
-      <div className="stat-row">
-        <span>ATV</span>
-        <span>0</span>
-      </div>
+      <div className="stat-metrics">
+        <div className="metric">
+          <span className="value big">{atv}</span>
+          <span className="label">ATV</span>
+        </div>
 
-      <div className="stat-row">
-        <span>MTD</span>
-        <span>0 / 0</span>
-      </div>
+        <div className="metric">
+          <span className="value big">{mtd}</span>
+          <span className="label">MTD</span>
+        </div>
 
-      <div className="stat-row">
-        <span>LMTD</span>
-        <span>0 / 0</span>
+        <div className="metric">
+          <span className="value big">{lmtd}</span>
+          <span className="label">LMTD</span>
+        </div>
       </div>
     </div>
   );

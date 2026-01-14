@@ -183,3 +183,36 @@
   --text-color: #4a044e;      
   --muted: #9d174d;          
 }
+[data-theme="neon-dark"] {
+  /* Backgrounds */
+  --app-bg: #020617;
+  --page-bg: #020617;
+
+  /* Header / Sidebar */
+  --header-bg: #020617;
+  --sidebar-bg: #020617;
+  --sidebar-hover: #020617;
+
+  /* Cards (THIS IS THE MAGIC) */
+  --card-bg: linear-gradient(
+    180deg,
+    rgba(255,255,255,0.06),
+    rgba(255,255,255,0.02)
+  );
+  --card-border: rgba(255,255,255,0.12);
+
+  /* Primary accent */
+  --primary: #3b82f6;
+
+  /* Text */
+  --text-color: #e5e7eb;
+  --muted: #9ca3af;
+
+  /* Accents */
+  --blue: #3b82f6;
+  --green: #22c55e;
+  --orange: #f59e0b;
+  --red: #ef4444;
+
+  --radius: 16px;
+}

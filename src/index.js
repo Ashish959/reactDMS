@@ -9,14 +9,13 @@ import { store } from "./store";
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
 root.render(
-  // <ThemeProvider>
-  //   <SessionProvider>
-  //     <App />
-  //   </SessionProvider>
-  // </ThemeProvider>
   <React.StrictMode>
     <Provider store={store}>
-      <App />
+      <ThemeProvider>
+        <SessionProvider>
+          <App />
+        </SessionProvider>
+      </ThemeProvider>
     </Provider>
   </React.StrictMode>
 );

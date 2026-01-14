@@ -1,11 +1,12 @@
-
 import "../styles/header.css";
 import "../styles/variables.css";
 import { useContext, useState, useEffect, useRef } from "react";
 import { SessionContext } from "../context/SessionContext";
 
 export default function Header({ onMenuClick }) {
-  const { sessionData } = useContext(SessionContext);
+  // 🔒 SAFE context access (NO CRASH)
+  const context = useContext(SessionContext);
+  const { sessionData } = context || {};
 
   const [clientOpen, setClientOpen] = useState(false);
   const [profileOpen, setProfileOpen] = useState(false);
@@ -65,7 +66,7 @@ export default function Header({ onMenuClick }) {
           <div className="client-info">
             <div className="client-name">{activeClient}</div>
             <div className="client-role">
-              {sessionData?.Role_Name ?? "Role"}
+              {sessionData?.Role_Name || "Role"}
             </div>
           </div>
           <span className="caret">▾</span>

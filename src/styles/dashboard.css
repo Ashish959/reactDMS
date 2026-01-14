@@ -199,21 +199,7 @@ body {
     grid-template-columns: 1fr;
   }
 }
-
-/* MUI Paper should not break layout */
-.MuiPaper-root {
-  width: 100%;
-  max-width: 100%;
+.table-actions{
+width: 27%;
 }
 
-/* Table minimum width (same as sx={{ minWidth: 750 }}) */
-.MuiTable-root {
-  min-width: 750px;
-}
-
-/* Mobile fix */
-@media (max-width: 768px) {
-  .MuiTable-root {
-    min-width: 600px;
-  }
-}
