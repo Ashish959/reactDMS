@@ -1,45 +1,63 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import dayjs from "dayjs";
+import { useDispatch, useSelector } from "react-redux";
+import { Navigate } from "react-router-dom";
+
 import StatCard from "../components/StatCard";
 import useDashboardInit from "../hooks/useDashboardInit";
+import { fetchDashboardOrders } from "../features/dashboard/dashboardOrdersSlice";
 import EnhancedTable from "../components/table/EnhancedTable";
 import DateRangeDropdown from "../components/table/DateRangeDropdown";
 import { StyledEngineProvider } from "@mui/material/styles";
-import useOrders from "../hooks/useOrders";
 
 export default function Dashboard() {
+  const dispatch = useDispatch();
+  const isAuthenticated = useSelector(
+    (state) => state.auth.isAuthenticated
+  );
+
+  console.log("✅ Redux Auth State:", isAuthenticated);
+
   const { loading: initLoading } = useDashboardInit();
-
-  // 🔍 search (future use)
-  const [search, setSearch] = useState("");
-
-  // 📅 DEFAULT CURRENT MONTH
   const [fromDate, setFromDate] = useState(dayjs().startOf("month"));
   const [toDate, setToDate] = useState(dayjs().endOf("month"));
+  //onst {rows,loading: tableLoading,error,} = useSelector((state) => state.dashboardOrders);
 
-  // ✅ 🔥 API CALL YAHAN HO RAHI HAI
-  const {
-    rows,
-    loading: tableLoading,
-  } = useOrders({
-    clientId: 0,          // 👈 selected client id yahan pass karna
-    action: "All",        // 👈 status / type
-    fromDate,
-    toDate,
-  });
+const {rows: reduxRows,loading: tableLoading,error,} = useSelector((state) => state.dashboardOrders);
+const rows = reduxRows.map((row, index) => ({...row,srNo: index + 1,}));
 
-  if (initLoading) return <div>Loading...</div>;
+  useEffect(() => {
+    if (isAuthenticated) {
+      dispatch(
+        fetchDashboardOrders({
+          clientId: 4952326,
+          action: "SALE,SALEAGAINSTORDER,PURCHASE,ServiceInvoice,Delivered,Delivery Attempted,EDC,Return,CreditNote,DebitNote,stockout",
+          startDate: fromDate,
+          endDate: toDate,
+          division: "",
+          SessionId:"ZTdNGDPPgfwHxKLSE673SJIXW6rcm4JcOHWp25r1r8kKYCYHkb41CWUCHF8SND/VP7DbKrDXEXgOneeUH0yBdQ==",
+        })
+      );
+    }
+  }, [dispatch, isAuthenticated, fromDate, toDate]);
+
+  if (!isAuthenticated) {
+    return <Navigate to="/" replace />;
+  }
+
+  if (initLoading) return <div>Loading dashboard...</div>;
+  if (error) return <div>{error}</div>;
 
   return (
     <>
-      {/* ================= CARDS ================= */}
+      {/* 🔹 Cards */}
       <div className="card-grid">
         <StatCard title="Pending Sales Order" className="card-blue" />
         <StatCard title="My Orders" className="card-orange" />
         <StatCard title="My Sales" className="card-green" />
       </div>
 
-      {/* ================= TABLE HEADER ================= */}
+      {/* 🔹 Table Header */}
       <div className="table-header">
         <h3>Order Details</h3>
 
@@ -55,12 +73,9 @@ export default function Dashboard() {
         </div>
       </div>
 
-      {/* ================= TABLE ================= */}
+      {/* 🔹 Table */}
       <div className="table-wrapper">
-        <EnhancedTable
-          rows={rows}            // ✅ API DATA
-          loading={tableLoading} // ✅ loader
-        />
+        <EnhancedTable rows={rows} loading={tableLoading} />
       </div>
     </>
   );

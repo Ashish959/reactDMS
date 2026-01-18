@@ -4,18 +4,21 @@ import App from "./App";
 import SessionProvider from "./context/SessionContext";
 import { ThemeProvider } from "./context/ThemeContext";
 import { Provider } from "react-redux";
-import { store } from "./store";
+import { store, persistor } from "./store";
+import { PersistGate } from "redux-persist/integration/react";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-      <ThemeProvider>
-        <SessionProvider>
-          <App />
-        </SessionProvider>
-      </ThemeProvider>
+      <PersistGate loading={null} persistor={persistor}>
+        <ThemeProvider>
+          <SessionProvider>
+            <App />
+          </SessionProvider>
+        </ThemeProvider>
+      </PersistGate>
     </Provider>
   </React.StrictMode>
 );

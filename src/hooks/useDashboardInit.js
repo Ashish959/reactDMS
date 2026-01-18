@@ -1,10 +1,11 @@
-import { useEffect, useState, useContext } from "react";
+import { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 import { getSession } from "../api/sessionApi";
 import { getGeneralData } from "../api/generalDataApi";
-import { SessionContext } from "../context/SessionContext";
+import { loginSuccess } from "../features/auth/authSlice";
 
 const useDashboardInit = () => {
-  const { setSessionData } = useContext(SessionContext);
+  const dispatch = useDispatch();
   const [loading, setLoading] = useState(true);
   const [generalData, setGeneralData] = useState([]);
 
@@ -12,7 +13,13 @@ const useDashboardInit = () => {
     const initDashboard = async () => {
       try {
         const session = await getSession();
-        setSessionData(session);
+        dispatch(
+          loginSuccess({
+            sessionId: session.SessionId,
+            empId: session.Emp_Id,
+            cmpId: session.Cmp_Id,
+          })
+        );
 
         localStorage.setItem("SessionData", JSON.stringify(session));
 
@@ -31,7 +38,7 @@ const useDashboardInit = () => {
     };
 
     initDashboard();
-  }, []);
+  }, [dispatch]);
 
   return { loading, generalData };
 };

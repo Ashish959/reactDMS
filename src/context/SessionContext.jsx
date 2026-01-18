@@ -1,12 +1,12 @@
 import { createContext, useState } from "react";
-
+import { useSelector } from "react-redux";
 export const SessionContext = createContext();
 
 const SessionProvider = ({ children }) => {
-  const [sessionData, setSessionData] = useState(null);
+ const auth = useSelector((state) => state.auth);
 
   return (
-    <SessionContext.Provider value={{ sessionData, setSessionData }}>
+     <SessionContext.Provider value={auth}>
       {children}
     </SessionContext.Provider>
   );
